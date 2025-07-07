@@ -11,6 +11,8 @@ pub struct Message {
 
 #[derive(Debug, Serialize)]
 //#[serde(tag = "r#type", rename_all = "snake_case")]
+//#[serde(rename_all = "snake_case")]
+#[serde(untagged)]
 pub enum MessageContent {
     Image {
         r#type: &'static str,
@@ -20,6 +22,21 @@ pub enum MessageContent {
         r#type: &'static str,
         text: String,
     },
+}
+
+impl Message {
+    pub fn user(content: Vec<MessageContent>) -> Self {
+        Self {
+            role: "user",
+            content,
+        }
+    }
+    pub fn system(content: Vec<MessageContent>) -> Self {
+        Self {
+            role: "system",
+            content,
+        }
+    }
 }
 
 impl MessageContent {
