@@ -1,10 +1,9 @@
-use image::ImageError;
 use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum LlmError {
     #[error("{0}")]
-    Image(#[from] ImageError),
+    Image(#[from] image::ImageError),
     #[error("{0}")]
     Json(#[from] serde_json::Error),
     #[error("{0}")]
@@ -13,5 +12,7 @@ pub enum LlmError {
     Io(#[from] std::io::Error),
     #[error("{0}")]
     Http(#[from] reqwest::Error),
+    #[error("{0}")]
+    Async(#[from] tokio::task::JoinError),
 }
 // serde_json::Error
