@@ -14,6 +14,7 @@ pub mod message;
 pub mod request;
 pub mod response;
 pub mod structure;
+pub mod urls;
 
 pub struct LlmWrapper {
     model: &'static str,
