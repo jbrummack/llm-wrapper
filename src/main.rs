@@ -1,4 +1,9 @@
-use llm_wrapper::error::LlmError;
+use llm_wrapper::{
+    LlmWrapper,
+    error::LlmError,
+    message::{Message, MessageContent},
+    urls::OPENROUTER_URL,
+};
 use schemars::JsonSchema as SchemaTrait;
 use serde::Deserialize;
 #[derive(Debug, Deserialize, SchemaTrait)]
@@ -20,7 +25,6 @@ pub struct TestSchema {
 pub struct TestNested {
     data: Vec<f32>,
 }
-
 /*impl Structure for TestNested {
     type SelfType = Self;
 }*/
@@ -29,6 +33,21 @@ pub struct TestNested {
 async fn main() -> Result<(), LlmError> {
     dotenvy::dotenv()?;
     let key = dotenvy::var("OPENROUTER")?;
+    let wrapper = LlmWrapper::new(
+        OPENROUTER_URL,
+        "mistralai/mistral-small-3.2-24b-instruct",
+        key,
+    )?;
+    let response = wrapper
+        .request_structured::<ImageRecognition>(vec![Message::user(vec![
+            MessageContent::image_data(
+                include_bytes!("test_img.png"),
+                Some(llm_wrapper::image::ImageMime::WebP),
+            )?,
+            MessageContent::text("Extract the values from the picture into the schema."),
+        ])])
+        .await?;
+    println!("{response:?}");
     Ok(())
 }
 
