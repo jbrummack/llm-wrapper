@@ -11,6 +11,7 @@ use crate::{
 pub mod error;
 pub mod image;
 pub mod message;
+pub mod model;
 pub mod request;
 pub mod response;
 pub mod structure;
@@ -79,7 +80,12 @@ impl LlmWrapper {
     }
 
     pub async fn request(&self, messages: Vec<Message>) -> Result<Response, LlmError> {
-        todo!()
+        let request = Request {
+            model: self.model,
+            response_format: None,
+            messages,
+        };
+        self.generate_response(request).await
     }
     pub async fn request_structured<T: Structure>(
         &self,
