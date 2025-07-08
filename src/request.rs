@@ -9,21 +9,3 @@ pub struct Request {
     pub messages: Vec<Message>,
     pub model: &'static str,
 }
-
-pub struct InlineData {
-    mime_type: &'static str,
-    data: String,
-}
-pub struct Part {
-    inline_data: Option<InlineData>,
-    text: Option<String>,
-}
-
-pub struct GeminiContents {
-    parts: Vec<Part>,
-}
-/*#[serde(rename_all = "camel_case")]
-pub struct GeminiGenerationConfig {
-    response_mime_type: &'static str,
-    response_schema:
-}*/

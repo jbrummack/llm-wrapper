@@ -1,7 +1,7 @@
 use schemars::{
     SchemaGenerator,
     r#gen::SchemaSettings,
-    visit::{Visitor, visit_schema, visit_schema_object},
+    visit::{Visitor, visit_schema_object},
 };
 use serde::Serialize;
 use serde_json::Value;
@@ -69,6 +69,3 @@ pub trait Structure: schemars::JsonSchema + serde::de::DeserializeOwned {
 impl<T: schemars::JsonSchema + serde::de::DeserializeOwned> Structure for T {
     type SelfType = T;
 }
-/*pub impl JsonSchema {
-    fn new<T: schemars::JsonSchema>(format: T)
-}*/
