@@ -14,6 +14,7 @@ pub struct ResponseFormat {
     r#type: &'static str,
     json_schema: JsonSchema,
 }
+//Needed for ChatGPT compatibility
 #[derive(Debug, Clone)]
 pub struct AdditionalProperties;
 
@@ -26,28 +27,6 @@ impl Visitor for AdditionalProperties {
         }
         visit_schema_object(self, schema);
     }
-    /*fn visit_schema(&mut self, schema: &mut schemars::schema::SchemaObject) {
-        schema
-            .extensions
-            .insert("additionalProperties".to_string(), serde_json::json!(false));
-
-        // Then delegate to default implementation to visit any subschemas
-        visit_schema(self, schema);
-    }*/
-    /*fn visit_schema(&mut self, schema: &mut schemars::schema::Schema) {
-        //schema.clone().into_object().subschemas.map(|ss| ss.)
-        //schema.into_object().object();
-        schema
-            .clone()
-            .into_object()
-            .extensions
-            .insert("additionalProperties".to_string(), serde_json::json!(false));
-        /*.object()
-        .insert("additionalProperties".to_string(), serde_json::json!(false)); */
-
-        // Then delegate to default implementation to visit any subschemas
-        visit_schema(self, schema);
-    }*/
 }
 impl ResponseFormat {
     pub fn new(json_schema: JsonSchema) -> Self {
@@ -85,6 +64,10 @@ pub trait Structure: schemars::JsonSchema + serde::de::DeserializeOwned {
         let r = serde_json::from_str(candidate)?;
         Ok(r)
     }
+}
+
+impl<T: schemars::JsonSchema + serde::de::DeserializeOwned> Structure for T {
+    type SelfType = T;
 }
 /*pub impl JsonSchema {
     fn new<T: schemars::JsonSchema>(format: T)
