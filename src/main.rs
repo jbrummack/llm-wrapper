@@ -6,6 +6,7 @@ use llm_wrapper::{
 };
 use schemars::JsonSchema as SchemaTrait;
 use serde::Deserialize;
+#[allow(dead_code)]
 #[derive(Debug, Deserialize, SchemaTrait)]
 pub struct ImageRecognition {
     kcal_per_100g: f32,
@@ -13,21 +14,18 @@ pub struct ImageRecognition {
     carbs_per_100g: f32,
     protein_per_100g: f32,
 }
-
+#[allow(dead_code)]
 #[derive(Debug, Deserialize, SchemaTrait)]
 pub struct TestSchema {
     name: String,
     age: u32,
     nesting: TestNested,
 }
-
+#[allow(dead_code)]
 #[derive(Debug, Deserialize, SchemaTrait)]
 pub struct TestNested {
     data: Vec<f32>,
 }
-/*impl Structure for TestNested {
-    type SelfType = Self;
-}*/
 
 #[tokio::main]
 async fn main() -> Result<(), LlmError> {
