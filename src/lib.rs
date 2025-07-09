@@ -1,13 +1,13 @@
 use tokio::runtime::Handle;
 
-use crate::{
+pub use crate::{
     error::LlmError,
     message::Message,
     request::Request,
     response::Response,
     structure::{JsonSchema, ResponseFormat, Structure},
 };
-
+pub use schemars::JsonSchema as SchemaTrait;
 pub mod error;
 pub mod image;
 pub mod message;
