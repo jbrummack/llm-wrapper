@@ -4,7 +4,7 @@ use llm_wrapper::{
     message::{Message, MessageContent},
     urls::OPENROUTER_URL,
 };
-use schemars::JsonSchema as SchemaTrait;
+pub use schemars::JsonSchema as SchemaTrait;
 use serde::Deserialize;
 #[allow(dead_code)]
 #[derive(Debug, Deserialize, SchemaTrait)]
