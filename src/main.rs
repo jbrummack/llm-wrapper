@@ -33,7 +33,8 @@ async fn main() -> Result<(), LlmError> {
     let key = dotenvy::var("OPENROUTER")?;
     let wrapper = LlmWrapper::new(
         OPENROUTER_URL,
-        "mistralai/mistral-small-3.2-24b-instruct",
+        //"mistralai/mistral-small-3.2-24b-instruct",
+        "meta-llama/llama-4-scout:free",
         key,
     )?;
     let response = wrapper

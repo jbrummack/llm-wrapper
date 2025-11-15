@@ -10,6 +10,7 @@ pub use crate::{
 pub use schemars::JsonSchema as SchemaTrait;
 pub mod error;
 pub mod image;
+pub mod json_schema;
 pub mod message;
 pub mod model;
 pub mod request;
